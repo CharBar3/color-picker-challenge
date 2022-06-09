@@ -89,12 +89,14 @@ function App() {
 
   return (
     <div id='bigDiv'>
+    <div id='colorPickerDiv'>
     <h1>Color Picker</h1>
+    </div>
     <div id='displayColors'>
     {/* {colorDivs} */}
     {newColorDivs}
     </div>
-    <button onClick={genNewColors}>Generate New Colors</button>
+    
     <div id='selectedColor'>
       <h1>Selected Color</h1>
       <div 
@@ -105,6 +107,9 @@ function App() {
             borderColor: "black"
       }}
       />
+    </div>
+    <div id='buttonDiv'>
+    <button onClick={genNewColors}>Generate New Colors</button>
     </div>
     <div id='keptColors'>
       <div 

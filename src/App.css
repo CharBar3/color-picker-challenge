@@ -61,7 +61,7 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-content: center;
+  align-items: center;
 }
 
 
@@ -69,4 +69,19 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+#buttonDiv {
+  display: flex;
+  justify-content: center;
+  height: 40px;
+}
+
+button {
+  height: 25px;
+}
+
+#colorPickerDiv {
+  display: flex;
+  justify-content: center;
 }
