@@ -15,7 +15,29 @@ function App() {
     selectedColorUpdate(`${red}, ${green}, ${blue}`)
   }
 
-  const [newColorDivs, setNewColorDivs] = useState("no colors yet")
+
+
+  for (let index = 0; index < 64; index++) {
+    const colors = {red: randomNumber(), 
+              green: randomNumber(),
+              blue: randomNumber()
+            }
+    colorsArray.push(colors)
+  }
+
+  // maps through color values array and creates a div with RGB values
+  const colorDivs = colorsArray.map(({red, green, blue}, index) => (
+    <div 
+    style={{backgroundColor: `rgb(${red}, ${green}, ${blue})`,
+            width: "25px",
+            height: "25px"
+    }}
+    onClick={()=>{handleClick({red, green, blue})}}
+    key={index}
+    />
+  ))
+
+  const [newColorDivs, setNewColorDivs] = useState(colorDivs)
   // let newColorDivs = null
   const newColorsArray = []
   
@@ -45,25 +67,6 @@ function App() {
   }
 
 
-  for (let index = 0; index < 5; index++) {
-    const colors = {red: randomNumber(), 
-              green: randomNumber(),
-              blue: randomNumber()
-            }
-    colorsArray.push(colors)
-  }
-
-  // maps through color values array and creates a div with RGB values
-  const colorDivs = colorsArray.map(({red, green, blue}, index) => (
-    <div 
-    style={{backgroundColor: `rgb(${red}, ${green}, ${blue})`,
-            width: "50px",
-            height: "50px"
-    }}
-    onClick={()=>{handleClick({red, green, blue})}}
-    key={index}
-    />
-  ))
 
   const [keepColor1, updateKeepColor1] = useState (0, 0, 0)
   const [keepColor2, updateKeepColor2] = useState (0, 0, 0)
@@ -83,7 +86,7 @@ function App() {
   }
 
 
-  
+
   return (
     <div id='bigDiv'>
     <h1>Color Picker</h1>
