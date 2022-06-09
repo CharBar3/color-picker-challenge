@@ -85,7 +85,7 @@ function App() {
 
   
   return (
-    <div>
+    <div id='bigDiv'>
     <h1>Color Picker</h1>
     <div id='displayColors'>
     {/* {colorDivs} */}
