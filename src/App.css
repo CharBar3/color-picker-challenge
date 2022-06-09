@@ -37,6 +37,10 @@
   }
 }
 
+body {
+  width:  400px;
+}
+
 #displayColors {
   display: flex;
   /* flex-direction: row;
