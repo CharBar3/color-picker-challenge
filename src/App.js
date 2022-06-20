@@ -11,15 +11,11 @@ function App() {
   // Generates 64 divs with a random color background and a onClick to save that color
   const getColors = () => {
     const availableColors = []
+    
     for (let index = 0; index < 64; index++) {
-      
-      const red = randomNumber()
-      const green = randomNumber()
-      const blue = randomNumber()
-
       availableColors.push(
         <div 
-      style={{backgroundColor: `rgb(${red}, ${green}, ${blue})`,
+      style={{backgroundColor: `rgb(${randomNumber()}, ${randomNumber()}, ${randomNumber()})`,
               width: "25px",
               height: "25px"
       }}
