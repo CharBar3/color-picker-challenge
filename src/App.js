@@ -7,100 +7,56 @@ function App() {
   const randomNumber = () => {
     return Math.floor(Math.random() * 256)
   }
-
-  // empty array to store colors numbers in
-  const colorsArray = []
-  const [selectedColor, selectedColorUpdate] = useState("0, 0, 0")
-  const handleClick = ({red, green, blue}) => {
-    selectedColorUpdate(`${red}, ${green}, ${blue}`)
-  }
-
-
-
-  for (let index = 0; index < 64; index++) {
-    const colors = {red: randomNumber(), 
-              green: randomNumber(),
-              blue: randomNumber()
-            }
-    colorsArray.push(colors)
-  }
-
-  // maps through color values array and creates a div with RGB values
-  const colorDivs = colorsArray.map(({red, green, blue}, index) => (
-    <div 
-    style={{backgroundColor: `rgb(${red}, ${green}, ${blue})`,
-            width: "25px",
-            height: "25px"
-    }}
-    onClick={()=>{handleClick({red, green, blue})}}
-    key={index}
-    />
-  ))
-
-  const [newColorDivs, setNewColorDivs] = useState(colorDivs)
-  // let newColorDivs = null
-  const newColorsArray = []
   
-  const genNewColors = () => {
-    
+  // Generates 64 divs with a random color background and a onClick to save that color
+  const getColors = () => {
+    const availableColors = []
     for (let index = 0; index < 64; index++) {
-      const colors = {red: randomNumber(), 
-                green: randomNumber(),
-                blue: randomNumber()
-              }
-      newColorsArray.push(colors)
-    }
+      
+      const red = randomNumber()
+      const green = randomNumber()
+      const blue = randomNumber()
 
-
-    const newColorDivs = newColorsArray.map(({red, green, blue}, index) => (
-      <div 
+      availableColors.push(
+        <div 
       style={{backgroundColor: `rgb(${red}, ${green}, ${blue})`,
               width: "25px",
               height: "25px"
       }}
-      onClick={()=>{handleClick({red, green, blue})}}
+      onClick={selectColor}
       key={index}
       />
-    ))
-
-    setNewColorDivs(newColorDivs)
+      )
+    }
+    return availableColors
   }
 
-
-
-  const [keepColor1, updateKeepColor1] = useState (0, 0, 0)
-  const [keepColor2, updateKeepColor2] = useState (0, 0, 0)
-  const [keepColor3, updateKeepColor3] = useState (0, 0, 0)
-
-  const colorKeep1 = (event) => {
-    event.preventDefault()
-    updateKeepColor1(selectedColor)
-  }
-  const colorKeep2 = (event) => {
-    event.preventDefault()
-    updateKeepColor2(selectedColor)
-  }
-  const colorKeep3 = (event) => {
-    event.preventDefault()
-    updateKeepColor3(selectedColor)
+  // updates the state of selectedColor to the be the same as the color of the div you click
+  const selectColor = (e) => {
+    e.preventDefault() 
+    updateSelectedColor(e.target.style.backgroundColor)
   }
 
+  // applies the corrent state of slected color to the background of the div you click
+  const saveColor = (e) => {
+    e.target.style.backgroundColor = selectedColor
+  }
 
+  // state to save all the available colors in the color picker div
+  const [availableColors, updateAvailableColors] = useState(getColors())
+  // state to save selected color
+  const [selectedColor, updateSelectedColor] = useState('rgb( 255, 255, 255)')
 
   return (
     <div id='bigDiv'>
-    <div id='colorPickerDiv'>
-    <h1>Color Picker</h1>
-    </div>
-    <div id='displayColors'>
-    {/* {colorDivs} */}
-    {newColorDivs}
-    </div>
-    
-    <div id='selectedColor'>
+      <h1>Color Picker</h1>
+        <div id="colorDisplay">
+      {availableColors}
+      </div>
+      <div id="selectedColor">
       <h1>Selected Color</h1>
       <div 
-    style={{backgroundColor: `rgb(${selectedColor})`,
+    style={{backgroundColor: `${selectedColor}`,
             width: "50px",
             height: "50px",
             borderStyle: "solid",
@@ -109,35 +65,35 @@ function App() {
       />
     </div>
     <div id='buttonDiv'>
-    <button onClick={genNewColors}>Generate New Colors</button>
+      <button onClick={() => updateAvailableColors(getColors())}>Generate New Colors</button>
     </div>
     <div id='keptColors'>
       <div 
-      style={{backgroundColor: `rgb(${keepColor1})`,
+      style={{backgroundColor: 'rgb( 255, 255, 255)',
             width: "100px",
             height: "100px",
             borderStyle: "solid",
             borderColor: "black"
       }}
-      onClick={colorKeep1}
+      onClick={saveColor}
       />
       <div 
-    style={{backgroundColor: `rgb(${keepColor2})`,
+    style={{backgroundColor: 'rgb( 255, 255, 255)',
             width: "100px",
             height: "100px",
             borderStyle: "solid",
             borderColor: "black"
       }}
-      onClick={colorKeep2}
+      onClick={saveColor}
       />
       <div 
-      style={{backgroundColor: `rgb(${keepColor3})`,
+      style={{backgroundColor: 'rgb( 255, 255, 255)',
             width: "100px",
             height: "100px",
             borderStyle: "solid",
             borderColor: "black"
       }}
-      onClick={colorKeep3}
+      onClick={saveColor}
       />
       </div>
     </div>
